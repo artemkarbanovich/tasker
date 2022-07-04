@@ -1,5 +1,10 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Security.Cryptography;
+using System.Text;
+using Tasker.Core.Entities;
+using Tasker.Core.Enums;
+using Tasker.Core.Interfaces.Repositories;
 
 namespace Tasker.Infrastructure.Data;
 
@@ -52,5 +57,24 @@ public class DatabaseSeeder
         };
 
         await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task AddAdminAsync(IUserRepository userRepository)
+    {
+        if (await userRepository.IsUserExistAsync("ADMIN", UserIdentifierType.Username))
+            return;
+
+        using var hmac = new HMACSHA512();
+
+        var user = new User(
+            id: Guid.NewGuid().ToString(),
+            email: "admin@tasker.com",
+            username: "admin",
+            registrationDate: DateTime.UtcNow,
+            passwordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd")),
+            passwordSalt: hmac.Key,
+            role: "Admin");
+
+        await userRepository.AddUserAsync(user);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Tasker.Api.Middleware;
+using Tasker.Core.Interfaces.Repositories;
 using Tasker.Infrastructure.Data;
 
 namespace Tasker.Api.Configuration;
@@ -39,10 +40,11 @@ public static class ConfigureApplication
             var databaseSeeder = services.GetRequiredService<DatabaseSeeder>();
 
             await databaseSeeder.CreateDatabaseAsync();
+            await databaseSeeder.AddAdminAsync(services.GetRequiredService<IUserRepository>());
         }
         catch (Exception ex)
         {
-            services.GetRequiredService<ILogger<Program>>().LogError(ex, "Error during database configurationg");
+            services.GetRequiredService<ILogger<Program>>().LogError(ex, "Error during database configuration");
         }
     }
 }
