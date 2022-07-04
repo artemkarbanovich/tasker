@@ -3,7 +3,7 @@ using Tasker.Core.Enums;
 
 namespace Tasker.Core.Interfaces.Repositories;
 
-public interface IUserRepository : IDisposable
+public interface IUserRepository
 {
     Task<bool> IsUserExistAsync(string identifier, UserIdentifierType userIdentifierType);
     Task AddUserAsync(User user);

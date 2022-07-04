@@ -11,8 +11,14 @@ public class DatabaseSeeder
     {
         _connection = connection;
 
-        if (connection.State is not ConnectionState.Open)
+        if (_connection.State is not ConnectionState.Open)
             _connection.Open();
+    }
+    
+    ~DatabaseSeeder()
+    {
+        if (_connection is not null && _connection.State is not ConnectionState.Closed)
+            _connection.Close();
     }
 
     public async Task CreateDatabaseAsync()

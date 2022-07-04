@@ -14,8 +14,14 @@ public class UserRepository : IUserRepository
     {
         _connection = connection;
 
-        if (connection.State is not ConnectionState.Open)
+        if (_connection.State is not ConnectionState.Open)
             _connection.Open();
+    }
+
+    ~UserRepository()
+    {
+        if (_connection is not null && _connection.State is not ConnectionState.Closed)
+            _connection.Close();
     }
 
     public async Task<bool> IsUserExistAsync(string identifier, UserIdentifierType userIdentifierType)
@@ -97,11 +103,5 @@ public class UserRepository : IUserRepository
             passwordHash: (byte[])reader["PasswordHash"],
             passwordSalt: (byte[])reader["PasswordSalt"],
             role: (string)reader["Role"]);
-    }
-
-    public void Dispose()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
     }
 }

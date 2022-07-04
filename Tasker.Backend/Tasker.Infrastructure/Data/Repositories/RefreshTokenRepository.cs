@@ -13,8 +13,14 @@ public class RefreshTokenRepository : IRefreshTokenRepository
     {
         _connection = connection;
 
-        if (connection.State is not ConnectionState.Open)
+        if (_connection.State is not ConnectionState.Open)
             _connection.Open();
+    }
+
+    ~RefreshTokenRepository()
+    {
+        if (_connection is not null && _connection.State is not ConnectionState.Closed)
+            _connection.Close();
     }
 
     public async Task AddRefreshTokenAsync(RefreshToken refreshToken)
@@ -86,11 +92,5 @@ public class RefreshTokenRepository : IRefreshTokenRepository
         command.Parameters.AddWithValue("@token", token);
 
         await command.ExecuteNonQueryAsync();
-    }
-
-    public void Dispose()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
     }
 }
