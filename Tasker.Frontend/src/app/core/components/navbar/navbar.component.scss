@@ -1,0 +1,41 @@
+nav {
+    background-color: whitesmoke;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.container {
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    height: 60px;
+}
+
+.container__nav {
+    position: absolute;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    font-size: 20px;
+    top: 35%;
+
+    ul {
+        padding: 0;
+        text-align: center;
+    }
+
+    li {
+        list-style: none;
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: rgb(144, 144, 144);
+    }
+}

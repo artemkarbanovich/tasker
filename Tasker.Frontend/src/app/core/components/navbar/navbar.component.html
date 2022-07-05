@@ -1,0 +1,29 @@
+<nav>
+	<div class="container">
+		<div class="container__nav">
+			<ul>
+				<li>
+					<a routerLink="">Home</a>
+				</li>
+				<ng-container *ngIf="!(accountService.currentUser$ | async)">
+					<li>
+						<a routerLink="register">Register</a>
+					</li>
+					<li>
+						<a routerLink="login">Login</a>
+					</li>
+				</ng-container>
+				<ng-template *ngIf="(accountService.currentUser$ | async)?.role === 'User'">
+					<li>
+						<a>Tasks</a>
+					</li>
+				</ng-template>
+				<ng-template *ngIf="(accountService.currentUser$ | async)?.role === 'Admin'">
+					<li>
+						<a>Statistics</a>
+					</li>
+				</ng-template>
+			</ul>
+		</div>
+	</div>
+</nav>
