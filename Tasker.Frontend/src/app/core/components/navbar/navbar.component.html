@@ -16,7 +16,7 @@
 				</ng-container>
 				<ng-container *ngIf="(accountService.currentUser$ | async)?.role === 'User'">
 					<li>
-						<a>Tasks</a>
+						<a>Objectives</a>
 					</li>
 				</ng-container>
 				<ng-container *ngIf="(accountService.currentUser$ | async)?.role === 'Admin'">
@@ -26,7 +26,7 @@
 				</ng-container>
 			</ul>
 		</div>
-
+		
 		<ng-container *ngIf="(accountService.currentUser$  | async) as user">
 			<div class="container__account">
 				<p>{{ user.username }}</p>

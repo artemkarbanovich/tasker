@@ -7,11 +7,12 @@ import { LoginComponent } from './core/components/account/login/login.component'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MeterialModule } from './shared/modules/meterial/meterial.module';
+import { MaterialModule } from './shared/modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { HomeComponent } from './core/components/home/home.component';
+import { ConfirmationComponent } from './shared/components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +20,14 @@ import { HomeComponent } from './core/components/home/home.component';
     RegistrationComponent,
     LoginComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MeterialModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
