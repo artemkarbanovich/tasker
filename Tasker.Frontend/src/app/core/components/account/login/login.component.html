@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="container__form">
+        <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="!errorType && loginForm.valid && login()">
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Email or username</mat-label>
+                <input type="text" [autofocus]="false" matInput formControlName="emailOrUsername">
+                <mat-error *ngIf="loginForm.controls['emailOrUsername'].invalid">Length must be from 3</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input [type]="hidePassword ? 'password' : 'text'"
+                    [autofocus]="false" matInput formControlName="password">
+                <button
+                    type="button"
+				    mat-icon-button
+				    matSuffix
+				    (click)="hidePassword = !hidePassword" 
+				    [attr.aria-label]="'Hide password'"
+				    [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.controls['password'].invalid">Length must be from 8 to 32</mat-error>
+            </mat-form-field>
+
+            <button 
+                class="submit-btn" 
+                color="primary" 
+                mat-raised-button 
+                type="submit"
+                [disabled]="!loginForm.valid || errorType">
+            Login
+            </button>
+        </form>
+        
+        <div class="error-message">
+            <p *ngIf="errorType"> {{ errorMessage }}</p>
+        </div>
+    </div>
+</div>

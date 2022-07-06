@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { HomeComponent } from './core/components/home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -4,5 +4,4 @@ export interface Account {
     accessToken: string;
     refreshToken: string;
     role: string;
-    accessTokenExpiryTime: Date;
 }

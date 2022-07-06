@@ -48,13 +48,13 @@ export class AccountService {
   }
 
   public setCurrentUser(user: Account): void {
-    const role: string = JSON.parse(atob(user.accessToken.split('.')[1])).role || '';
-    if(role) {
-      user.role = role;
-    }
-    user.accessTokenExpiryTime = new Date(new Date().getTime() + 29 * 60000);
+    user.role = JSON.parse(atob(user.accessToken.split('.')[1]))['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+  
+  public getCurrentUser(): Account | null {
+    return JSON.parse(localStorage.getItem('user') || null);
   }
 
   public deleteCurrentUser(): void {

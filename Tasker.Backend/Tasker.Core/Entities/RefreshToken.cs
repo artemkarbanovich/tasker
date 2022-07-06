@@ -26,7 +26,6 @@ public class RefreshToken
 
     public void UpdateToken()
     {
-        Token = GenerateToken();
         CreationTime = DateTime.UtcNow;
         ExpiryTime = DateTime.UtcNow.AddMonths(6);
     }

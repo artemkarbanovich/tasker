@@ -39,3 +39,20 @@ a {
         color: rgb(144, 144, 144);
     }
 }
+
+.container__account {
+    right: 0;
+    position: absolute;
+    padding-left: 10px;
+    padding-right: 20px;
+    display: inline-block;
+    font-size: 20px;
+    top: 20%;
+
+    p {
+        display: inline-block;
+        margin: 0;
+        padding-right: 100px;
+        padding-top: 9px;
+    }
+}
