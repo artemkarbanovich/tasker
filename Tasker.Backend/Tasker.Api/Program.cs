@@ -1,5 +1,7 @@
+using System.Globalization;
 using Tasker.Api.Configuration;
 
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 
 var builder = WebApplication.CreateBuilder(args);
 

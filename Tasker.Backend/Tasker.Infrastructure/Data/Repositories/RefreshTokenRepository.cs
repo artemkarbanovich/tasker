@@ -28,7 +28,7 @@ public class RefreshTokenRepository : IRefreshTokenRepository
         var command = new SqliteCommand()
         {
             Connection = _connection,
-            CommandText = "INSERT INTO RefreshTokens (Id, UserId, Token, CreationTime, ExpiryTime) VALUES (@id, @userId, @token, @creationTime, @expiryTime);"
+            CommandText = "INSERT INTO RefreshTokens(Id, UserId, Token, CreationTime, ExpiryTime) VALUES(@id, @userId, @token, @creationTime, @expiryTime);"
         };
 
         command.Parameters.AddWithValue("@id", refreshToken.Id);

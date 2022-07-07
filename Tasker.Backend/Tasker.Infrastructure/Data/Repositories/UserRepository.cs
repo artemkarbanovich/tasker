@@ -2,6 +2,7 @@
 using System.Data;
 using Tasker.Core.Entities;
 using Tasker.Core.Enums;
+using Tasker.Core.Exceptions;
 using Tasker.Core.Interfaces.Repositories;
 
 namespace Tasker.Infrastructure.Data.Repositories;
@@ -36,7 +37,8 @@ public class UserRepository : IUserRepository
         {
             UserIdentifierType.Id => "Id = @identifier);",
             UserIdentifierType.Email => "NormalizedEmail = @identifier);",
-            UserIdentifierType.Username => "NormalizedUsername = @identifier);"
+            UserIdentifierType.Username => "NormalizedUsername = @identifier);",
+            _ => throw new DefaultException("Unknown database exception")
         };
 
         if (userIdentifierType is UserIdentifierType.Id)
@@ -54,7 +56,8 @@ public class UserRepository : IUserRepository
         var command = new SqliteCommand()
         {
             Connection = _connection,
-            CommandText = "INSERT INTO Users (Id, Email, NormalizedEmail, Username, NormalizedUsername, RegistrationDate, PasswordHash, PasswordSalt, Role) VALUES (@id, @email, @normalizedEmail, @username, @normalizedUsername, @registrationDate, @passwordHash, @passwordSalt, @role);"
+            CommandText = "INSERT INTO Users(Id, Email, NormalizedEmail, Username, NormalizedUsername, RegistrationDate, PasswordHash, PasswordSalt, Role) " +
+            "VALUES(@id, @email, @normalizedEmail, @username, @normalizedUsername, @registrationDate, @passwordHash, @passwordSalt, @role);"
         };
 
         command.Parameters.AddWithValue("@id", user.Id);
@@ -82,7 +85,8 @@ public class UserRepository : IUserRepository
         {
             UserIdentifierType.Id => "Id = @identifier;",
             UserIdentifierType.Email => "NormalizedEmail = @identifier;",
-            UserIdentifierType.Username => "NormalizedUsername = @identifier;"
+            UserIdentifierType.Username => "NormalizedUsername = @identifier;",
+            _ => throw new DefaultException("Unknown database exception")
         };
 
         if (userIdentifierType is UserIdentifierType.Id)

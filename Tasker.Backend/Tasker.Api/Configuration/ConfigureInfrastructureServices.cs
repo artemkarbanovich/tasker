@@ -6,6 +6,7 @@ using Tasker.Core.Interfaces.Repositories;
 using Tasker.Core.Interfaces.Services;
 using Tasker.Infrastructure.Data;
 using Tasker.Infrastructure.Data.Repositories;
+using Tasker.Infrastructure.Mapping;
 using Tasker.Infrastructure.Services;
 
 namespace Tasker.Api.Configuration;
@@ -43,11 +44,15 @@ public static class ConfigureInfrastructureServices
 
         var sqliteConnection = new SqliteConnection(config.GetConnectionString("DefaultConnection"));
 
-        services.AddScoped(opt => new DatabaseSeeder(sqliteConnection));
-        services.AddScoped<IUserRepository>(opt => new UserRepository(sqliteConnection));
+        services.AddScoped(opt => new DatabaseConfigurator(sqliteConnection));
+        services.AddScoped<IUserRepository, UserRepository>(opt => new UserRepository(sqliteConnection));
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>(opt => new RefreshTokenRepository(sqliteConnection));
+        services.AddScoped<IFreeApiRepository, FreeApiRepository>(opt => new FreeApiRepository(sqliteConnection));
+        services.AddScoped<IObjectiveRepository, ObjectiveRepository>(opt => new ObjectiveRepository(sqliteConnection));
 
         services.AddScoped<ITokenService, TokenService>();
+
+        services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
         return services;
     }

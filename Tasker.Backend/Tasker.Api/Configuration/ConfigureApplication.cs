@@ -37,10 +37,11 @@ public static class ConfigureApplication
 
         try
         {
-            var databaseSeeder = services.GetRequiredService<DatabaseSeeder>();
+            var databaseConfigurator = services.GetRequiredService<DatabaseConfigurator>();
 
-            await databaseSeeder.CreateDatabaseAsync();
-            await databaseSeeder.AddAdminAsync(services.GetRequiredService<IUserRepository>());
+            await databaseConfigurator.CreateDatabaseAsync();
+            await databaseConfigurator.AddAdminAsync(services.GetRequiredService<IUserRepository>());
+            await databaseConfigurator.SeedFreeApisAsync(services.GetRequiredService<IFreeApiRepository>());
         }
         catch (Exception ex)
         {

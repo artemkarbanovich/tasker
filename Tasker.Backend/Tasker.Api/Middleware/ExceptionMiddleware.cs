@@ -24,7 +24,7 @@ public class ExceptionMiddleware
         catch (Exception ex)
         {
             _logger.LogError(ex.Message);
-            _logger.LogTrace(ex.StackTrace);
+            _logger.LogInformation(ex.ToString());
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = GetStatusCode(ex);
