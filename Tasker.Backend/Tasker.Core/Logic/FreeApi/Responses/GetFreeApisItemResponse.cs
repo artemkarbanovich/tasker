@@ -4,6 +4,6 @@ public record GetFreeApisItemResponse(
     string Id, 
     string Name,
     string ApiDescription,
-    string ApiIconUrl,
+    string? ApiIconUrl,
     bool IsQueryRequired,
-    string QueryDescription);
+    string? QueryDescription);

@@ -7,4 +7,4 @@ public record UpdateObjectiveRequest(
     DateTime StartAt,
     int PeriodInMinutes,
     string FreeApiId,
-    string Query);
+    string? Query);

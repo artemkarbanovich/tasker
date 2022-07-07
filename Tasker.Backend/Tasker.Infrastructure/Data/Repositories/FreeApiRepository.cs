@@ -37,11 +37,11 @@ public class FreeApiRepository : IFreeApiRepository
         command.Parameters.AddWithValue("@apiUrl", freeApi.ApiUrl);
         command.Parameters.AddWithValue("@name", freeApi.Name);
         command.Parameters.AddWithValue("@apiDescription", freeApi.ApiDescription);
-        command.Parameters.AddWithValue("@apiIconUrl", freeApi.ApiIconUrl);
+        command.Parameters.AddWithValue("@apiIconUrl", freeApi.ApiIconUrl ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@rapidApiHost", freeApi.RapidApiHost);
         command.Parameters.AddWithValue("@isQueryRequired", freeApi.IsQueryRequired);
-        command.Parameters.AddWithValue("@queryKey", freeApi.QueryKey);
-        command.Parameters.AddWithValue("@queryDescription", freeApi.QueryDescription);
+        command.Parameters.AddWithValue("@queryKey", freeApi.QueryKey ?? (object)DBNull.Value);
+        command.Parameters.AddWithValue("@queryDescription", freeApi.QueryDescription ?? (object)DBNull.Value);
 
         await command.ExecuteNonQueryAsync();
     }
@@ -66,11 +66,11 @@ public class FreeApiRepository : IFreeApiRepository
             apiUrl: (string)reader["ApiUrl"],
             name: (string)reader["Name"],
             apiDescription: (string)reader["ApiDescription"],
-            apiIconUrl: (string)reader["ApiIconUrl"],
+            apiIconUrl: reader["ApiIconUrl"] is DBNull ? null : (string)reader["ApiIconUrl"],
             rapidApiHost: (string)reader["RapidApiHost"],
             isQueryRequired: (long)reader["IsQueryRequired"] == 1,
-            queryKey: (string)reader["QueryKey"],
-            queryDescription: (string)reader["QueryDescription"]);
+            queryKey: reader["QueryKey"] is DBNull ? null : (string)reader["QueryKey"],
+            queryDescription: reader["QueryDescription"] is DBNull ? null : (string)reader["QueryDescription"]);
     }
 
     public async Task<List<GetFreeApisItemResponse>> GetFreeApisAsync()
@@ -93,9 +93,9 @@ public class FreeApiRepository : IFreeApiRepository
                 Id: (string)reader["Id"],
                 Name: (string)reader["Name"],
                 ApiDescription: (string)reader["ApiDescription"],
-                ApiIconUrl: (string)reader["ApiIconUrl"],
+                ApiIconUrl: reader["ApiIconUrl"] is DBNull ? null : (string)reader["ApiIconUrl"],
                 IsQueryRequired: (long)reader["IsQueryRequired"] == 1,
-                QueryDescription: (string)reader["QueryDescription"]));
+                QueryDescription: reader["QueryDescription"] is DBNull ? null : (string)reader["QueryDescription"]));
         }
 
         return freeApisResponse;

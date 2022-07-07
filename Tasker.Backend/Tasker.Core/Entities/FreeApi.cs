@@ -9,11 +9,11 @@ public class FreeApi
         string apiUrl,
         string name,
         string apiDescription,
-        string apiIconUrl,
+        string? apiIconUrl,
         string rapidApiHost,
         bool isQueryRequired,
-        string queryKey,
-        string queryDescription)
+        string? queryKey,
+        string? queryDescription)
     {
         Id = id;
         ApiUrl = apiUrl;
