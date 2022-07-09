@@ -16,7 +16,7 @@
 				</ng-container>
 				<ng-container *ngIf="(accountService.currentUser$ | async)?.role === 'User'">
 					<li>
-						<a>Objectives</a>
+						<a routerLink="objectives">Objectives</a>
 					</li>
 				</ng-container>
 				<ng-container *ngIf="(accountService.currentUser$ | async)?.role === 'Admin'">
@@ -29,7 +29,7 @@
 		
 		<ng-container *ngIf="(accountService.currentUser$  | async) as user">
 			<div class="container__account">
-				<p>{{ user.username }}</p>
+				<p>{{ user.email }}</p>
 			</div>
 			<div class="container__account">
 				<button mat-raised-button color="warn" (click)="logout()">Logout</button>

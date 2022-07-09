@@ -54,7 +54,7 @@ export class AccountService {
   }
   
   public getCurrentUser(): Account | null {
-    return JSON.parse(localStorage.getItem('user') || null);
+    return JSON.parse(localStorage.getItem('user')) || null;
   }
 
   public deleteCurrentUser(): void {

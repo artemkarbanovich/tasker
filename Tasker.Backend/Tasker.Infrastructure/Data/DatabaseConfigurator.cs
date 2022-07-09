@@ -19,12 +19,6 @@ public class DatabaseConfigurator
         if (_connection.State is not ConnectionState.Open)
             _connection.Open();
     }
-    
-    ~DatabaseConfigurator()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
-    }
 
     public async Task CreateDatabaseAsync()
     {

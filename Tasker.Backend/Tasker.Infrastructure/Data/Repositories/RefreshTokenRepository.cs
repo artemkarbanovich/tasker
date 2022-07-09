@@ -17,12 +17,6 @@ public class RefreshTokenRepository : IRefreshTokenRepository
             _connection.Open();
     }
 
-    ~RefreshTokenRepository()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
-    }
-
     public async Task AddRefreshTokenAsync(RefreshToken refreshToken)
     {
         var command = new SqliteCommand()

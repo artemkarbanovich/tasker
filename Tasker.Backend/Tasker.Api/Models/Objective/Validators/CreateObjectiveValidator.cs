@@ -25,8 +25,8 @@ public class CreateObjectiveValidator : AbstractValidator<CreateObjectiveRequest
 
         RuleFor(x => x.PeriodInMinutes)
             .NotNull().WithMessage("Period in minutes cannot be null")
-            .GreaterThan(5).WithMessage("Period in minutes cannot be less than 5 minutes")
-            .LessThan(10080).WithMessage("Period in minutes cannot be greater than 10080 minutes");
+            .GreaterThan(4).WithMessage("Period in minutes cannot be less than 5 minutes")
+            .LessThan(10081).WithMessage("Period in minutes cannot be greater than 10080 minutes");
 
         RuleFor(x => x.FreeApiId)
             .NotNull().WithMessage("Api id cannot be null")

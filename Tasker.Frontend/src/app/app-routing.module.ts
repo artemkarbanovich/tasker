@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/components/account/login/login.component';
 import { RegistrationComponent } from './core/components/account/registration/registration.component';
 import { HomeComponent } from './core/components/home/home.component';
+import { ObjectiveCreateComponent } from './core/components/objective/objective-create/objective-create.component';
+import { ObjectiveEditComponent } from './core/components/objective/objective-edit/objective-edit.component';
+import { ObjectiveListComponent } from './core/components/objective/objective-list/objective-list.component';
 import { NoAuthGuard } from './core/guards/no-auth.guard';
+import { RoleGuard } from './core/guards/role.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +18,17 @@ const routes: Routes = [
     children: [
       { path: 'register', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
+    ]
+  },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [RoleGuard],
+    data: { role: 'User' },
+    children: [
+      { path: 'objectives', component: ObjectiveListComponent },
+      { path: 'objectives/create', component: ObjectiveCreateComponent },
+      { path: 'objectives/:id', component: ObjectiveEditComponent }
     ]
   },
   { path: '**', component: HomeComponent, pathMatch: 'full' }

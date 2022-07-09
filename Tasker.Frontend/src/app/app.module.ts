@@ -13,6 +13,9 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { HomeComponent } from './core/components/home/home.component';
 import { ConfirmationComponent } from './shared/components/confirmation/confirmation.component';
+import { ObjectiveListComponent } from './core/components/objective/objective-list/objective-list.component';
+import { ObjectiveEditComponent } from './core/components/objective/objective-edit/objective-edit.component';
+import { ObjectiveCreateComponent } from './core/components/objective/objective-create/objective-create.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { ConfirmationComponent } from './shared/components/confirmation/confirma
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ObjectiveListComponent,
+    ObjectiveEditComponent,
+    ObjectiveCreateComponent
   ],
   imports: [
     BrowserModule,

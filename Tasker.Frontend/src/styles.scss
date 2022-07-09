@@ -1,4 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+$custom-pallete: (
+    50 : #e6f0f0,
+    100 : #c0dada,
+    200 : #97c1c1,
+    300 : #6da8a8,
+    400 : #4d9696,
+    500 : #2e8383,
+    600 : #297b7b,
+    700 : #237070,
+    800 : #1d6666,
+    900 : #125353,
+    A100 : #8cffff,
+    A200 : #59ffff,
+    A400 : #26ffff,
+    A700 : #0dffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+$client-primary: mat.define-palette($custom-pallete);
+$client-accent: mat.define-palette($custom-pallete);
+$client-warn: mat.define-palette(mat.$red-palette);
+$client-theme: mat.define-light-theme((
+  color: (
+    primary: $client-primary,
+    accent: $client-accent,
+    warn: $client-warn,
+  )
+));
+@include mat.all-component-themes($client-theme);
+
 * {
     box-sizing: border-box;
     margin: 0;

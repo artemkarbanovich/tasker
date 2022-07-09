@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="container__form" *ngIf="objectiveCreateForm !== null">
+        <form [formGroup]="objectiveCreateForm" autocomplete="off" (ngSubmit)="!getSubmitButtonDisabler() && createObjective()">
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input type="text" [autofocus]="false" matInput formControlName="name">
+                <mat-error *ngIf="objectiveCreateForm.controls['name'].invalid">Length must be from 3 to 35</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Description</mat-label>
+                <textarea rows="3" type="text" [autofocus]="false" matInput formControlName="description"></textarea>
+                <mat-error *ngIf="objectiveCreateForm.controls['description'].invalid">Length must be from 5 to 150
+                </mat-error>
+            </mat-form-field>
+
+            <div class="start-at-period__container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Start at</mat-label>
+                    <input type="datetime" matInput [autofocus]="false" [ngxMatDatetimePicker]="DTPdeliveryDate" autocomplete="off"
+                        formControlName="startAt" readonly [min]="startAtMinDate">
+                    <mat-datepicker-toggle matSuffix [for]="DTPdeliveryDate"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker [defaultTime]="startAtDefaultTime" [stepMinute]="1"
+                        #DTPdeliveryDate>
+                    </ngx-mat-datetime-picker>
+                    <button type="button" matSuffix mat-icon-button (click)="resetStartAtDate();">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="objectiveCreateForm.controls['startAt'].invalid">Required field</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Period <b>(minutes)</b></mat-label>
+                    <input type="number" [autofocus]="false" matInput formControlName="period">
+                    <mat-error *ngIf="objectiveCreateForm.controls['period'].invalid">Period must be from 5 to 10080
+                        minutes</mat-error>
+
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="fill" class="form-field-select">
+                <mat-label>Free API</mat-label>
+                <mat-select formControlName="freeApi" (selectionChange)="freeApiChanges()">
+                    <mat-option *ngFor="let api of freeApis" [value]="api.id">
+                        <img [src]="api.apiIconUrl" [alt]="api.name">
+                        {{api.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="objectiveCreateForm.controls['freeApi'].invalid">Required field</mat-error>
+            </mat-form-field>
+
+            <ng-container *ngIf="selectedFreeApi !== null">
+                <p class="api-description"><b>Description: </b> {{selectedFreeApi.apiDescription}}</p>
+                <ng-container *ngIf="selectedFreeApi.isQueryRequired">
+
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>{{selectedFreeApi.queryDescription}}</mat-label>
+                        <input type="text" [autofocus]="false" matInput formControlName="query">
+                        <mat-error *ngIf="objectiveCreateForm.controls['query'].invalid">Length must be from 3 to 40
+                        </mat-error>
+                    </mat-form-field>
+
+                </ng-container>
+
+                <button class="submit-btn" color="primary" mat-raised-button type="submit"
+                    [disabled]="getSubmitButtonDisabler()">
+                    Create
+                </button>
+
+            </ng-container>
+
+        </form>
+    </div>
+</div>

@@ -18,12 +18,6 @@ public class ObjectiveRepository : IObjectiveRepository
             _connection.Open();
     }
 
-    ~ObjectiveRepository()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
-    }
-
     public async Task AddObjectiveAsync(Objective objective)
     {
         var command = new SqliteCommand()

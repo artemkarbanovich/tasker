@@ -18,12 +18,6 @@ public class FreeApiRepository : IFreeApiRepository
             _connection.Open();
     }
 
-    ~FreeApiRepository()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
-    }
-
     public async Task AddFreeApiAsync(FreeApi freeApi)
     {
         var command = new SqliteCommand()

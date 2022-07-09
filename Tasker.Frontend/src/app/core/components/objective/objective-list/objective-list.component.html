@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="container__table" *ngIf="objectives.length !== 0">
+        <div class="container__create">
+            <button mat-raised-button color="primary" routerLink="create">Create objective</button>
+        </div>
+
+        <table mat-table [dataSource]="objectives">
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let objective">{{objective.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let objective">{{objective.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="executedLastTime">
+                <th mat-header-cell *matHeaderCellDef>Executed last time</th>
+                <td mat-cell *matCellDef="let objective">{{objective.executedLastTime || '&#8212;' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Edit</th>
+                <td mat-cell *matCellDef="let order">
+                    <button mat-stroked-button routerLink="{{order.id}}">Edit</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>Delete</th>
+                <td mat-cell *matCellDef="let order">
+                    <button mat-stroked-button color="warn" (click)="deleteObjective(order.id)">Delete</button>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+        </table>
+    </div>
+    <div class="container__no-objectives" *ngIf="objectives.length === 0">
+        <h2>No objectives yet. <a routerLink="create">Create</a></h2>
+    </div>
+</div>

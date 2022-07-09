@@ -19,12 +19,6 @@ public class UserRepository : IUserRepository
             _connection.Open();
     }
 
-    ~UserRepository()
-    {
-        if (_connection is not null && _connection.State is not ConnectionState.Closed)
-            _connection.Close();
-    }
-
     public async Task<bool> IsUserExistAsync(string identifier, UserIdentifierType userIdentifierType)
     {
         var command = new SqliteCommand()

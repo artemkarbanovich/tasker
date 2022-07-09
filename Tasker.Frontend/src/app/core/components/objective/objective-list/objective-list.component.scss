@@ -1,0 +1,40 @@
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container__table {
+    margin-top: 15px;
+}
+
+table {
+    overflow-y: hidden;
+    border-collapse: collapse;
+    width: 99.999%;
+    min-width: 920px;
+    border: 1px solid #CCC;
+}
+
+th {
+    font-size: 15px;
+    padding: 0 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+td {
+    padding: 0 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #CCC;
+}
+
+.container__create {
+    margin-left: 35px;
+    margin-bottom: 15px;   
+}
+
+.container__no-objectives {
+    margin-left: 35px;
+    margin-top: 15px;
+}
