@@ -34,12 +34,20 @@
                     <button mat-stroked-button color="warn" (click)="deleteObjective(order.id)">Delete</button>
                 </td>
             </ng-container>
-            
+
             <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
         </table>
+
+        <div class="paginator__container">
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageIndex]="pageNumber"
+                [pageSize]="pageSize" [length]="totalItems" [showFirstLastButtons]="true"
+                (page)="pageEvent = handlePage($event)">
+            </mat-paginator>
+        </div>
+        
     </div>
-    <div class="container__no-objectives" *ngIf="objectives.length === 0">
+    <div class="container__no-objectives" *ngIf="objectives.length === 0 && totalItems === 0">
         <h2>No objectives yet. <a routerLink="create">Create</a></h2>
     </div>
 </div>

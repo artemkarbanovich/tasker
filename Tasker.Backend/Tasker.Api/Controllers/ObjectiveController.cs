@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tasker.Api.Extensions;
 using Tasker.Api.Models.Objective.Requests;
 using Tasker.Core.Logic.Objective;
+using Tasker.Core.Logic.Objective.Requests;
 using Tasker.Core.Logic.Objective.Responses;
 
 namespace Tasker.Api.Controllers;
@@ -30,9 +31,9 @@ public class ObjectiveController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<GetObjectivesItemResponse>>> GetObjectives()
+    public async Task<ActionResult<GetObjectivesResponse>> GetObjectives([FromQuery] GetObjectivesRequest query)
     {
-        return Ok(await _objectiveService.GetObjectivesAsync(User.GetId()));
+        return Ok(await _objectiveService.GetObjectivesAsync(User.GetId(), query));
     }
 
     [HttpGet("{id}")]

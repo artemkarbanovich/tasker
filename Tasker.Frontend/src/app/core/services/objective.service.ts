@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -23,8 +23,12 @@ export class ObjectiveService {
     return this.http.get<GetObjectiveByIdResponse>(this.baseUrl + 'objectives/' + id);
   }
   
-  public getObjectives(): Observable<GetObjectivesResponse[]> {
-    return this.http.get<GetObjectivesResponse[]>(this.baseUrl + 'objectives');
+  public getObjectives(pageNumber: number, pageSize: number): Observable<GetObjectivesResponse> {
+    let params = new HttpParams();
+    params = params.append('PageNumber', pageNumber.toString());
+    params = params.append('PageSize', pageSize.toString());
+
+    return this.http.get<GetObjectivesResponse>(this.baseUrl + 'objectives', { params });
   }
   
   public deleteObjective(id: string): Observable<void> {

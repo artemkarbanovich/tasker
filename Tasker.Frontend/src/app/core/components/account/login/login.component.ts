@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { LoginEmailRequest } from 'src/app/core/models/requests/login-email-request';
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   public errorType: string | null = null;
   public errorMessage: string  | null = null;
 
-  constructor(private accountService: AccountService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private accountService: AccountService, private formBuilder: FormBuilder, private router: Router,
+    private snackBar: MatSnackBar) { }
 
   public ngOnInit(): void { 
     this.initializeForm();
@@ -44,6 +46,9 @@ export class LoginComponent implements OnInit {
           return throwError(() => response);
         })
       ).subscribe(() => {
+        let config = new MatSnackBarConfig();
+        config.duration = 3000;
+        this.snackBar.open('You successfully logged in', 'Close', config);
         this.router.navigate(['']);
       });
     } else {
@@ -64,11 +69,14 @@ export class LoginComponent implements OnInit {
           return throwError(() => response);
         })
       ).subscribe(() => {
+        let config = new MatSnackBarConfig();
+        config.duration = 3000;
+        this.snackBar.open('You successfully logged in', 'Close', config);
         this.router.navigate(['']);
       });
     }
   }
-
+  
   private initializeForm(): void {
     this.loginForm = this.formBuilder.group({
       emailOrUsername: ['', [Validators.required, Validators.minLength(3)]],

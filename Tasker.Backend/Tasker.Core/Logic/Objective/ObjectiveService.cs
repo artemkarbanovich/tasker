@@ -2,6 +2,7 @@
 using Tasker.Core.Exceptions;
 using Tasker.Core.Enums;
 using Tasker.Core.Logic.Objective.Responses;
+using Tasker.Core.Logic.Objective.Requests;
 
 namespace Tasker.Core.Logic.Objective;
 
@@ -49,12 +50,12 @@ public class ObjectiveService
         // Add objective to CRON
     }
 
-    public async Task<List<GetObjectivesItemResponse>> GetObjectivesAsync(string userId)
+    public async Task<GetObjectivesResponse> GetObjectivesAsync(string userId, GetObjectivesRequest query)
     {
         if (!await _userRepository.IsUserExistAsync(userId, UserIdentifierType.Id))
             throw new NotFoundException($"User with id {userId} not found");
 
-        return await _objectiveRepository.GetObjectivesAsync(userId);
+        return await _objectiveRepository.GetObjectivesAsync(userId, query);
     }
 
     public async Task<Entities.Objective> GetObjectiveByIdAsync(string userId, string objectiveId)

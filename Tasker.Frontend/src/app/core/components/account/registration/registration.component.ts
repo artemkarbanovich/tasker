@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { RegisterRequest } from 'src/app/core/models/requests/register-request';
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   public errorMessage: string  | null = null;
 
   constructor(private accountService: AccountService, private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router, private snackBar: MatSnackBar) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -44,6 +45,9 @@ export class RegistrationComponent implements OnInit {
         return throwError(() => response);
       })
     ).subscribe(() => {
+      let config = new MatSnackBarConfig();
+      config.duration = 3000;
+      this.snackBar.open('You successfully registered and logged in', 'Close', config);
       this.router.navigate(['']);
     });
   }

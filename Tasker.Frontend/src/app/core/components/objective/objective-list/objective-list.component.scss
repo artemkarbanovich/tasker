@@ -38,3 +38,14 @@ td {
     margin-left: 35px;
     margin-top: 15px;
 }
+
+.paginator__container {
+    width: 100%;
+    border-bottom: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+}
+
+::ng-deep .mat-paginator-container {
+    justify-content: center !important;
+}

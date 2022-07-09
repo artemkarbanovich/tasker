@@ -2,6 +2,7 @@
 using System.Data;
 using Tasker.Core.Entities;
 using Tasker.Core.Interfaces.Repositories;
+using Tasker.Core.Logic.Objective.Requests;
 using Tasker.Core.Logic.Objective.Responses;
 
 namespace Tasker.Infrastructure.Data.Repositories;
@@ -44,28 +45,46 @@ public class ObjectiveRepository : IObjectiveRepository
         await command.ExecuteNonQueryAsync();
     }
 
-    public async Task<List<GetObjectivesItemResponse>> GetObjectivesAsync(string userId)
+    public async Task<GetObjectivesResponse> GetObjectivesAsync(string userId, GetObjectivesRequest query)
     {
-        var command = new SqliteCommand()
+        var getObjectivesCommand = new SqliteCommand()
         {
             Connection = _connection,
             CommandText = "SELECT Id, Name, Description, ExecutedLastTime   " +
                 "FROM Objectives                                            " +
                 "WHERE IsDeleted = 0 AND UserId = @userId                   " +
-                "ORDER BY DATE(LatestUpdateTime) DESC;                      "
+                "ORDER BY DATE(LatestUpdateTime) DESC                       " +
+                "LIMIT @pageSize                                            " +
+                "OFFSET @pageNumber * @pageSize;                            "
+        };
+        var totalItemsCommand = new SqliteCommand()
+        {
+            Connection = _connection,
+            CommandText = "SELECT COUNT(*) FROM Objectives WHERE IsDeleted = 0 AND UserId = @userId"
         };
 
-        command.Parameters.AddWithValue("@userId", userId);
+        getObjectivesCommand.Parameters.AddWithValue("@userId", userId);
+        getObjectivesCommand.Parameters.AddWithValue("@pageSize", query.PageSize);
+        getObjectivesCommand.Parameters.AddWithValue("@pageNumber", query.PageNumber);
 
-        using var reader = await command.ExecuteReaderAsync();
-        var objectivesResponse = new List<GetObjectivesItemResponse>();
+        totalItemsCommand.Parameters.AddWithValue("@userId", userId);
+
+        using var reader = await getObjectivesCommand.ExecuteReaderAsync();
+        var totalItems = await totalItemsCommand.ExecuteScalarAsync();
+
+        var objectivesResponse = new GetObjectivesResponse()
+        {
+            PageNumber = query.PageNumber,
+            PageSize = query.PageSize,
+            TotalItems = totalItems is not null ? (int)(long)totalItems : 0
+        };
 
         if (!reader.HasRows)
             return objectivesResponse;
 
         while(await reader.ReadAsync())
         {
-            objectivesResponse.Add(new GetObjectivesItemResponse(
+            objectivesResponse.Objectives.Add(new GetObjectivesItems(
                 Id: (string)reader["Id"],
                 Name: (string)reader["Name"],
                 Description: (string)reader["Description"],

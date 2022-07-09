@@ -1,6 +1,8 @@
+import { GetObjectivesItems } from "./get-objectives-items";
+
 export interface GetObjectivesResponse {
-    id: string;
-    name: string;
-    description: string;
-    executedLastTime: string | null;
+    pageNumber: number;
+    pageSize: number;
+    totalItems: number;
+    objectives: GetObjectivesItems[];
 }
