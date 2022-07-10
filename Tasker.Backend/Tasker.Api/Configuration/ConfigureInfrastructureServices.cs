@@ -51,6 +51,9 @@ public static class ConfigureInfrastructureServices
         services.AddScoped<IObjectiveRepository, ObjectiveRepository>(opt => new ObjectiveRepository(sqliteConnection));
 
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IHttpService, HttpService>();
+        services.AddScoped<ICsvService, CsvService>();
+        services.AddScoped<IEmailService, EmailService>();
 
         services.AddAutoMapper(typeof(MapperProfile).Assembly);
 

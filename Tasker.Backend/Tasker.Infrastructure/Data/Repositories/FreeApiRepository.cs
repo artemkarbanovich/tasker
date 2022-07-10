@@ -23,8 +23,8 @@ public class FreeApiRepository : IFreeApiRepository
         var command = new SqliteCommand()
         {
             Connection = _connection,
-            CommandText = "INSERT INTO FreeApis(Id, ApiUrl, Name, ApiDescription, ApiIconUrl, RapidApiHost, IsQueryRequired, QueryKey, QueryDescription) " +
-                "VALUES(@id, @apiUrl, @name, @apiDescription, @apiIconUrl, @rapidApiHost, @isQueryRequired, @queryKey, @queryDescription);"
+            CommandText = "INSERT INTO FreeApis(Id, ApiUrl, Name, ApiDescription, ApiIconUrl, RapidApiHost, IsQueryRequired, QueryKey, QueryDescription, RequiredQueryParams) " +
+                "VALUES(@id, @apiUrl, @name, @apiDescription, @apiIconUrl, @rapidApiHost, @isQueryRequired, @queryKey, @queryDescription, @requiredQueryParams);"
         };
 
         command.Parameters.AddWithValue("@id", freeApi.Id);
@@ -36,6 +36,7 @@ public class FreeApiRepository : IFreeApiRepository
         command.Parameters.AddWithValue("@isQueryRequired", freeApi.IsQueryRequired);
         command.Parameters.AddWithValue("@queryKey", freeApi.QueryKey ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@queryDescription", freeApi.QueryDescription ?? (object)DBNull.Value);
+        command.Parameters.AddWithValue("@requiredQueryParams", freeApi.RequiredQueryParams ?? (object)DBNull.Value);
 
         await command.ExecuteNonQueryAsync();
     }
@@ -64,7 +65,8 @@ public class FreeApiRepository : IFreeApiRepository
             rapidApiHost: (string)reader["RapidApiHost"],
             isQueryRequired: (long)reader["IsQueryRequired"] == 1,
             queryKey: reader["QueryKey"] is DBNull ? null : (string)reader["QueryKey"],
-            queryDescription: reader["QueryDescription"] is DBNull ? null : (string)reader["QueryDescription"]);
+            queryDescription: reader["QueryDescription"] is DBNull ? null : (string)reader["QueryDescription"],
+            requiredQueryParams: reader["RequiredQueryParams"] is DBNull ? null : (string)reader["RequiredQueryParams"]);
     }
 
     public async Task<List<GetFreeApisItemResponse>> GetFreeApisAsync()

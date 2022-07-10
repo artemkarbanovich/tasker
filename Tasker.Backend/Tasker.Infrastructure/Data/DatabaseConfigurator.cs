@@ -58,7 +58,8 @@ public class DatabaseConfigurator
                 "   RapidApiHost TEXT NOT NULL,                     " +
                 "   IsQueryRequired INTEGER NOT NULL,               " +
                 "   QueryKey TEXT,                                  " +
-                "   QueryDescription TEXT                           " +
+                "   QueryDescription TEXT,                          " +
+                "   RequiredQueryParams TEXT                        " +
                 ");                                                 " +
                 "                                                   " +
                 "CREATE TABLE IF NOT EXISTS Objectives(             " +
@@ -121,7 +122,8 @@ public class DatabaseConfigurator
                 rapidApiHost: "weatherapi-com.p.rapidapi.com",
                 isQueryRequired: true,
                 queryKey: "?q=",
-                queryDescription: "Input location to check the weather"
+                queryDescription: "Input location to check the weather",
+                requiredQueryParams: null
             ),
             new FreeApi(
                 id: Guid.NewGuid().ToString(),
@@ -132,7 +134,8 @@ public class DatabaseConfigurator
                 rapidApiHost: "covid-19-statistics.p.rapidapi.com",
                 isQueryRequired: true,
                 queryKey: "?q=",
-                queryDescription: "Input country to get the report of COVID-19"
+                queryDescription: "Input country to get the report of COVID-19",
+                requiredQueryParams: null
             ),
              new FreeApi(
                 id: Guid.NewGuid().ToString(),
@@ -143,7 +146,8 @@ public class DatabaseConfigurator
                 rapidApiHost: "numbersapi.p.rapidapi.com",
                 isQueryRequired: true,
                 queryKey: "/",
-                queryDescription: "Input 'trivia', 'math', 'date' or 'year' to get random fact"
+                queryDescription: "Input 'trivia', 'math', 'date' or 'year' to get random fact",
+                requiredQueryParams: "?json=true"
             )
         };
 

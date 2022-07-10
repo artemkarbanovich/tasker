@@ -13,7 +13,8 @@ public class FreeApi
         string rapidApiHost,
         bool isQueryRequired,
         string? queryKey,
-        string? queryDescription)
+        string? queryDescription,
+        string? requiredQueryParams)
     {
         Id = id;
         ApiUrl = apiUrl;
@@ -31,6 +32,7 @@ public class FreeApi
 
         QueryKey = queryKey;
         QueryDescription = queryDescription;
+        RequiredQueryParams = requiredQueryParams;
     }
 
     public string Id { get; private set; } = Guid.NewGuid().ToString();
@@ -42,4 +44,5 @@ public class FreeApi
     public bool IsQueryRequired { get; private set; }
     public string? QueryKey { get; private set; }
     public string? QueryDescription { get; private set; }
+    public string? RequiredQueryParams { get; private set; }
 }
