@@ -1,6 +1,7 @@
 ﻿using Tasker.Core.Logic.Account;
 using Tasker.Core.Logic.FreeApi;
 using Tasker.Core.Logic.Objective;
+using Tasker.Core.Logic.Statistics;
 using Tasker.Core.Logic.Token;
 
 namespace Tasker.Api.Configuration;
@@ -13,6 +14,7 @@ public static class ConfigureCoreServices
         services.AddScoped<TokenService>();
         services.AddScoped<FreeApiService>();
         services.AddScoped<ObjectiveService>();
+        services.AddScoped<StatisticsService>();
 
         return services;
     }

@@ -21,7 +21,7 @@
 				</ng-container>
 				<ng-container *ngIf="(accountService.currentUser$ | async)?.role === 'Admin'">
 					<li>
-						<a>Statistics</a>
+						<a routerLink="statistics">Statistics</a>
 					</li>
 				</ng-container>
 			</ul>

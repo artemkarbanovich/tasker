@@ -6,6 +6,7 @@ import { HomeComponent } from './core/components/home/home.component';
 import { ObjectiveCreateComponent } from './core/components/objective/objective-create/objective-create.component';
 import { ObjectiveEditComponent } from './core/components/objective/objective-edit/objective-edit.component';
 import { ObjectiveListComponent } from './core/components/objective/objective-list/objective-list.component';
+import { StatisticsComponent } from './core/components/statistics/statistics.component';
 import { NoAuthGuard } from './core/guards/no-auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
 
@@ -29,6 +30,15 @@ const routes: Routes = [
       { path: 'objectives', component: ObjectiveListComponent },
       { path: 'objectives/create', component: ObjectiveCreateComponent },
       { path: 'objectives/:id', component: ObjectiveEditComponent }
+    ]
+  },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [RoleGuard],
+    data: { role: 'Admin' },
+    children: [
+      { path: 'statistics', component: StatisticsComponent }
     ]
   },
   { path: '**', component: HomeComponent, pathMatch: 'full' }

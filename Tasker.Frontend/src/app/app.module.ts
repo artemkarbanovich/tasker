@@ -16,6 +16,7 @@ import { ConfirmationComponent } from './shared/components/confirmation/confirma
 import { ObjectiveListComponent } from './core/components/objective/objective-list/objective-list.component';
 import { ObjectiveEditComponent } from './core/components/objective/objective-edit/objective-edit.component';
 import { ObjectiveCreateComponent } from './core/components/objective/objective-create/objective-create.component';
+import { StatisticsComponent } from './core/components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ObjectiveCreateComponent } from './core/components/objective/objective-
     ConfirmationComponent,
     ObjectiveListComponent,
     ObjectiveEditComponent,
-    ObjectiveCreateComponent
+    ObjectiveCreateComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

@@ -52,6 +52,7 @@ public static class ConfigureInfrastructureServices
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>(opt => new RefreshTokenRepository(sqliteConnection));
         services.AddScoped<IFreeApiRepository, FreeApiRepository>(opt => new FreeApiRepository(sqliteConnection));
         services.AddScoped<IObjectiveRepository, ObjectiveRepository>(opt => new ObjectiveRepository(sqliteConnection));
+        services.AddScoped<IStatisticsRepository, StatisticsRepository>(opt => new StatisticsRepository(sqliteConnection));
 
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IHttpService, HttpService>();
