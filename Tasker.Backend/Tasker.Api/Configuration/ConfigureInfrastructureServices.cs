@@ -3,10 +3,13 @@ using Microsoft.Data.Sqlite;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Tasker.Core.Interfaces.Repositories;
+using Tasker.Core.Interfaces.Schedulers;
 using Tasker.Core.Interfaces.Services;
 using Tasker.Infrastructure.Data;
 using Tasker.Infrastructure.Data.Repositories;
+using Tasker.Infrastructure.Jobs;
 using Tasker.Infrastructure.Mapping;
+using Tasker.Infrastructure.Schedulers;
 using Tasker.Infrastructure.Services;
 
 namespace Tasker.Api.Configuration;
@@ -56,6 +59,10 @@ public static class ConfigureInfrastructureServices
         services.AddScoped<IEmailService, EmailService>();
 
         services.AddAutoMapper(typeof(MapperProfile).Assembly);
+
+        services.AddTransient<IMailingScheduler, MailingScheduler>();
+
+        services.AddTransient<MailingJob>();
 
         return services;
     }

@@ -82,7 +82,7 @@ export class ObjectiveCreateComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       startAt: ['', [Validators.required]],
-      period: ['', [Validators.required, Validators.min(5), Validators.max(10080)]],
+      period: ['', [Validators.required, Validators.min(1), Validators.max(10080)]],
       freeApi: ['', [Validators.required]],
       query: ['', [Validators.maxLength(40), Validators.minLength(3), Validators.required]]
     });

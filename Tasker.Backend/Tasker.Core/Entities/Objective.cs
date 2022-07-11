@@ -80,4 +80,10 @@ public class Objective
         FreeApiId = freeApiId;
         Query = query;
     }
+
+    public void ExecuteObjective()
+    {
+        ExecutedCount++;
+        ExecutedLastTime = DateTime.UtcNow;
+    }
 }

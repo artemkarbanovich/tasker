@@ -107,7 +107,7 @@ export class ObjectiveEditComponent implements OnInit {
       name: [this.objective.name, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       description: [this.objective.description, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       startAt: [this.objective.startAt, [Validators.required]],
-      period: [this.objective.periodInMinutes, [Validators.required, Validators.min(5), Validators.max(10080)]],
+      period: [this.objective.periodInMinutes, [Validators.required, Validators.min(1), Validators.max(10080)]],
       freeApi: [this.objective.freeApiId, [Validators.required]],
       query: [this.objective.query || '', [Validators.maxLength(40), Validators.minLength(3), Validators.required]]
     });

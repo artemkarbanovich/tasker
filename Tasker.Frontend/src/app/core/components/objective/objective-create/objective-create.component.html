@@ -33,7 +33,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Period <b>(minutes)</b></mat-label>
                     <input type="number" [autofocus]="false" matInput formControlName="period">
-                    <mat-error *ngIf="objectiveCreateForm.controls['period'].invalid">Period must be from 5 to 10080
+                    <mat-error *ngIf="objectiveCreateForm.controls['period'].invalid">Period must be from 1 to 10080
                         minutes</mat-error>
 
                 </mat-form-field>

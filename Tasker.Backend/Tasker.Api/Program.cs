@@ -9,7 +9,8 @@ builder.Logging.AddSerilog(builder.Configuration);
 builder.Services
     .AddCoreServices()
     .AddInfrastructureServices(builder.Configuration)
-    .AddApiServices();
+    .AddApiServices()
+    .AddQuartz(builder.Configuration);
 
 var app = builder.Build();
 

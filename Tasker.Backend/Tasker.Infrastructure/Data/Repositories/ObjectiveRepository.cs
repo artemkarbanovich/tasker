@@ -144,7 +144,7 @@ public class ObjectiveRepository : IObjectiveRepository
         var command = new SqliteCommand()
         {
             Connection = _connection,
-            CommandText = "UPDATE Objectives SET Name = @name, Description = @description, LatestUpdateTime = @latestUpdateTime, StartAt = @startAt, PeriodInMinutes = @periodInMinutes, FreeApiId = @freeApiId, Query = @query " +
+            CommandText = "UPDATE Objectives SET Name = @name, Description = @description, LatestUpdateTime = @latestUpdateTime, StartAt = @startAt, PeriodInMinutes = @periodInMinutes, FreeApiId = @freeApiId, Query = @query, ExecutedCount = @executedCount, ExecutedLastTime = @executedLastTime " +
                 "WHERE UserId = @userId AND Id = @objectiveId;"
         };
 
@@ -155,6 +155,8 @@ public class ObjectiveRepository : IObjectiveRepository
         command.Parameters.AddWithValue("@periodInMinutes", objective.PeriodInMinutes);
         command.Parameters.AddWithValue("@freeApiId", objective.FreeApiId);
         command.Parameters.AddWithValue("@query", objective.Query ?? (object)DBNull.Value);
+        command.Parameters.AddWithValue("@executedCount", objective.ExecutedCount);
+        command.Parameters.AddWithValue("@executedLastTime", objective.ExecutedLastTime ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@userId", objective.UserId);
         command.Parameters.AddWithValue("@objectiveId", objective.Id);
 

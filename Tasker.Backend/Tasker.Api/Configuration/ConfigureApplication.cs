@@ -26,6 +26,7 @@ public static class ConfigureApplication
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
+        app.UseQuartz();
 
         return app;
     }

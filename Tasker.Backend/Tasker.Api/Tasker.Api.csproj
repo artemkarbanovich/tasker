@@ -1,12 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Databases\**" />
+    <Content Remove="Databases\**" />
+    <EmbeddedResource Remove="Databases\**" />
+    <None Remove="Databases\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CreateQuartzTables.txt" />
+    <None Remove="quartz.db" />
     <None Remove="tasker.db" />
   </ItemGroup>
 
